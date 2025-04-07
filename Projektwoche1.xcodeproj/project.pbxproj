@@ -11,9 +11,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */ = {
+		DB8A47BF2D43AFD3001C2B3B /* CashFlow */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Projektwoche1;
+			path = CashFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		DB8A47B42D43AFD2001C2B3B = {
 			isa = PBXGroup;
 			children = (
-				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
+				DB8A47BF2D43AFD3001C2B3B /* CashFlow */,
 				DB8A47BE2D43AFD3001C2B3B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
+				DB8A47BF2D43AFD3001C2B3B /* CashFlow */,
 			);
 			name = Projektwoche1;
 			packageProductDependencies = (
