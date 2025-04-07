@@ -6,19 +6,41 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
+    @State private var users: [User] = []
+    @State private var showingAddUser = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(users) { user in
+                        NavigationLink(destination: UserDetailView(user: user)) {
+                            Text(user.name)
+                        }
+                    }
+                    .onDelete(perform: deleteUser)
+                }
+                .navigationTitle("Benutzer")
+                .navigationBarItems(trailing: Button(action: {
+                    showingAddUser = true
+                }) {
+                    Image(systemName: "plus")
+                })
+                .sheet(isPresented: $showingAddUser) {
+                    AddUserView(users: $users)
+                }
+            }
         }
-        .padding()
+    }
+    
+    func deleteUser(at offsets: IndexSet) {
+        users.remove(atOffsets: offsets)
+    }
+}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
 
-#Preview {
-    ContentView()
-}
