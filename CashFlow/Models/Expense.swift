@@ -6,6 +6,11 @@
 //
 
 import Foundation
+import SwiftData
+import SwiftUI
+
+@Model
+
 class Expense: Identifiable {
     var id: UUID
     var amount: Double

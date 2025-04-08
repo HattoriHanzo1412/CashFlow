@@ -6,16 +6,21 @@
 //
 
 import Foundation
-import Combine
-class User: Identifiable, ObservableObject { // Hier das Protokoll ObservableObject anfügen
+import SwiftData
+import SwiftUI
+
+@Model
+
+class User: Identifiable {
     var id: UUID
-    @Published var name: String // Verwende @Published für beobachtbare Variablen
-    @Published var email: String
-    @Published var bankAccounts: [BankAccount] // Auch bankAccounts sollten beobachtbar sein
-    init(name: String, email: String) {
+ 
+    var email: String
+    var password: String
+
+    init( email: String, password: String) {
         self.id = UUID()
-        self.name = name
         self.email = email
-        self.bankAccounts = [] // Initialisierung der bankAccounts
+        self.password = password
+      
     }
 }

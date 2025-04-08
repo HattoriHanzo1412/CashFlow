@@ -6,21 +6,21 @@
 //
 
 import Foundation
-import Combine
-class Budget: Identifiable, ObservableObject { // Implementiere das ObservableObject-Protokoll
-    var id: UUID
-    @Published var name: String // Verwende @Published für beobachtbare Variablen
-    @Published var plannedAmount: Double
-    @Published var expenses: [Expense] = []
-    init(name: String, plannedAmount: Double) {
-        self.id = UUID()
-        self.name = name
-        self.plannedAmount = plannedAmount
-    }
-    var totalSpent: Double {
-        return expenses.reduce(0) { $0 + $1.amount }
-    }
-    var availableAmount: Double {
-        return plannedAmount - totalSpent
+import SwiftData
+import SwiftUI
+
+@Model
+
+class Budget: Identifiable {
+    var id: UUID = UUID()
+    var title = ""
+    var date = Date()
+    var amount: Double
+    
+    init(title: String, date: Date, amount: Double){
+        
+        self.title = title
+        self.date = Date()
+        self.amount = amount
     }
 }
