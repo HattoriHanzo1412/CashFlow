@@ -7,7 +7,7 @@
 
 import SwiftUI
 @main
-struct CashFlowApp: App {
+struct Projektwoche1App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

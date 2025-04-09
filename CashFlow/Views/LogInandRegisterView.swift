@@ -6,27 +6,17 @@
 //
 
 import SwiftUI
-import SwiftData
-
-
-
 struct LogInandRegisterView: View {
-    
-    
     @Environment(\.modelContext) private var context
-    
-    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isAuthenticated: Bool = false
     @State private var showAlert: Bool = false
-    let validUsername = "JohnDoe"
-    let validPassword = "Passwort"
+    let validUsername = "1234"
+    let validPassword = "abcd"
     var body: some View {
-        NavigationStack{
-            ZStack{
-                Image(systemName: "")
-                
+        NavigationStack {
+            ZStack {
                 if isAuthenticated {
                     ContentView()
                 } else {
@@ -43,35 +33,30 @@ struct LogInandRegisterView: View {
                         Button(action: {
                             authenticate()
                         }) {
-                            NavigationLink(destination: MainView()){
-                                Text("Anmelden")
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
-                            }
-                            
-                            .padding()
-                            .alert(isPresented: $showAlert) {
-                                Alert(title: Text("Fehler"), message: Text("Ungültiger Benutzername oder Passwort"), dismissButton: .default(Text("OK")))
-                            }
+                            Text("Anmelden")
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
                         .padding()
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Fehler"), message: Text("Ungültiger Benutzername oder Passwort"), dismissButton: .default(Text("OK")))
+                        }
                     }
                 }
             }
         }
     }
-        private func authenticate() {
-            if username == validUsername && password == validPassword {
-                isAuthenticated = true
-            } else {
-                showAlert = true
-            }
+    
+    private func authenticate() {
+        if username == validUsername && password == validPassword {
+            isAuthenticated = true
+        } else {
+            showAlert = true
         }
     }
-
-#Preview {
-    LogInandRegisterView()
+}
+#Preview {LogInandRegisterView()
 }

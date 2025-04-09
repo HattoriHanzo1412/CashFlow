@@ -7,15 +7,13 @@
 
 import Foundation
 import SwiftData
-import SwiftUI
-
 @Model
-
 class Expense: Identifiable {
     var id: UUID
     var amount: Double
     var date: Date
     var label: String
+    
     init(amount: Double, label: String) {
         self.id = UUID()
         self.amount = amount

@@ -6,33 +6,18 @@
 //
 
 import SwiftUI
-
 struct SectionView: View {
-
-    @State private var kategorieButton: Budget?
-    @State var haushaltsbuch: [Budget] = [
-        Budget(title: "", date: Date(), amount: 0.0)
-    ]
-    @State var indivuellesBudget: [Budget] = [
-        Budget(title: "", date: Date(), amount: 0.0)
-    ]
-  
-
-    @Binding var budgets: [Budget]
-    var sectionName: String
+    @State var budgets = [Budget(id: UUID(), title: "Küche", date: .now, amount: 1500.00)]
+    var sectionName: String = "Haushaltsbuch"
     var body: some View {
-        NavigationStack {
+        List {
             Section(header: Text(sectionName)) {
                 ForEach(budgets) { budget in
-                    NavigationLink(
-                        "\(budget.title)",
-                        destination: MainView())
+                    NavigationLink("\(budget.title)", destination: MainView())
                 }
             }
         }
     }
 }
-
-#Preview {
-    SectionView(budgets: .constant([]), sectionName: "Test")
+#Preview {SectionView()
 }

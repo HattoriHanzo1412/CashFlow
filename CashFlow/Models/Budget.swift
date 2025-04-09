@@ -7,20 +7,17 @@
 
 import Foundation
 import SwiftData
-import SwiftUI
-
 @Model
-
 class Budget: Identifiable {
     var id: UUID = UUID()
-    var title = ""
+    var title: String = ""
     var date = Date()
     var amount: Double
     
-    init(title: String, date: Date, amount: Double){
-        
+    init(id: UUID, title: String, date: Date = Date(), amount: Double) {
+        self.id = id
         self.title = title
-        self.date = Date()
+        self.date = date
         self.amount = amount
     }
-}
+    }

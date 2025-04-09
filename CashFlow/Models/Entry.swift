@@ -6,11 +6,7 @@
 //
 
 import Foundation
-
 struct Entry: Identifiable {
     let id = UUID()
     let title: String
-    
-    }
-
-
+}
