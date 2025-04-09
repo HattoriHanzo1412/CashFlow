@@ -24,4 +24,5 @@ struct IndividuelleBudgetView: View {
     }
 }
 #Preview {IndividuelleBudgetView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }

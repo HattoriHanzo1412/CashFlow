@@ -23,4 +23,5 @@ struct HaushaltsbuchView: View {
     }
 }
 #Preview {HaushaltsbuchView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }

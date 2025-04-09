@@ -11,6 +11,7 @@ struct Projektwoche1App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: [Expense.self, Entry.self])
         }
     }
 }

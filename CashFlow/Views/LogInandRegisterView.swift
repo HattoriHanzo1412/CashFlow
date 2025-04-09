@@ -4,23 +4,30 @@
 //
 //  Created by Kimberly Voigt on 08.04.25.
 //
-
+import SwiftData
 import SwiftUI
 struct LogInandRegisterView: View {
     @Environment(\.modelContext) private var context
+   
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isAuthenticated: Bool = false
     @State private var showAlert: Bool = false
+    
     let validUsername = "1234"
     let validPassword = "abcd"
     var body: some View {
         NavigationStack {
             ZStack {
                 if isAuthenticated {
-                    ContentView()
+                   
+                  FinanzUebersichtView()
+                    
+                    
                 } else {
+                    
                     VStack {
+                        
                         Text("Login")
                             .font(.largeTitle)
                             .padding()
@@ -48,8 +55,8 @@ struct LogInandRegisterView: View {
                 }
             }
         }
+        
     }
-    
     private func authenticate() {
         if username == validUsername && password == validPassword {
             isAuthenticated = true
@@ -58,5 +65,8 @@ struct LogInandRegisterView: View {
         }
     }
 }
-#Preview {LogInandRegisterView()
+
+#Preview {
+    LogInandRegisterView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }

@@ -10,6 +10,9 @@ import SwiftData
 struct AddTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    
+    @Query var expens: [Expense]
+    
     @State private var title: String = ""
     @State private var amount: String = ""
     @State private var date: Date = Date()
@@ -20,7 +23,7 @@ struct AddTransactionView: View {
                 Section(header: Text("Transaktion Details")) {
                     TextField("Beschreibung", text: $title)
                     TextField("Summe", text: $amount)
-                        .keyboardType(.decimalPad)
+                       
                     DatePicker("Datum", selection: $date, displayedComponents: .date)
                 }
                 Button("Speichern") {
@@ -51,4 +54,5 @@ struct AddTransactionView: View {
 }
 #Preview{
     AddTransactionView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }
