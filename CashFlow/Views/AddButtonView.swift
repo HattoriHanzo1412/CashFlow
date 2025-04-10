@@ -18,7 +18,7 @@ struct AddTransactionView: View {
     @State private var amount: String = ""
     @State private var date: Date = Date()
     @State private var selectedCategory: Kategorie = .entry
-    @State private var notes: String = "" // Neues Feld für den Verwendungszweck
+    @State private var notes: String = ""
     var body: some View {
         NavigationStack {
             Form {
@@ -54,7 +54,7 @@ struct AddTransactionView: View {
     
     func addTransaction() {
         guard let amountValue = Double(amount) else { return }
-        let newExpense = Expense(amount: amountValue, label: title, notes: notes) // Notiz hinzufügen
+        let newExpense = Expense(amount: amountValue, label: title, notes: notes) 
         modelContext.insert(newExpense)
         do {
             try modelContext.save()
