@@ -8,55 +8,84 @@
 import SwiftUI
 struct DetailView: View {
     
-    @State var selectedExpense: Expense
+    var selectedExpense: Transaktion
+    
+    @State private var entryNote: String = ""
+    @State private var expenseNote: String = ""
+    
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         return formatter
     }
+    
     var body: some View {
-        ScrollView{
-                VStack(alignment:.leading, spacing:10){
+        ScrollView {
+            if let entry = selectedExpense.entry {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Detail Buchung")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.horizontal)
-                    Text(dateFormatter.string(from: selectedExpense.date))
+                    Text(dateFormatter.string(from: entry.date))
                         .font(.caption)
                         .foregroundColor(.blue)
                         .padding(.horizontal)
                     Divider()
                         .overlay(.black)
                     Spacer()
-                        
-                    Text("Betrag:\(selectedExpense.amount, format: .currency(code: "EUR"))")
+                    
+                    Text("Betrag: \(entry.amount, format: .currency(code: "EUR"))")
                         .font(.headline)
                         .padding(.horizontal)
-                    Text("Kategorie: \(selectedExpense.label)")
+                    Text("Kategorie: \(entry.label)")
                         .font(.subheadline)
                         .padding(.horizontal)
+                    
+                    
+                    Text("Notiz: \(entry.notes)")
+                        .font(.subheadline)
+                        .padding(.horizontal)
+                    
                     Spacer()
-                    if let notes = selectedExpense.notes, !notes.isEmpty {
-                        Text("Notizen")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        Text(notes)
-                            .font(.body)
-                            .padding(.horizontal)
-                            .padding(.bottom)
-                    }
-                
+                }
             }
             
+            if let expense = selectedExpense.expense {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Detail Ausgabe")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.horizontal)
+                    Text(dateFormatter.string(from: expense.date))
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                        .padding(.horizontal)
+                    Divider()
+                        .overlay(.black)
+                    Spacer()
+                    
+                    Text("Betrag: \(expense.amount, format: .currency(code: "EUR"))")
+                        .font(.headline)
+                        .padding(.horizontal)
+                    Text("Kategorie: \(expense.label)")
+                        .font(.subheadline)
+                        .padding(.horizontal)
+                    
+                    
+                    Text("Notiz: \(String(describing: expense.notes))")
+                        .font(.subheadline)
+                        .padding(.horizontal)
+                    
+                    Spacer()
+                }
+            }
         }
     }
 }
 #Preview {DetailView(
-    selectedExpense: Expense(
-        amount: 1500.00,
-        label: "Gehalt",
-        notes: "Gehalt von letztem Monat März"
-    )
+    selectedExpense: Transaktion(entry: Entry(id: UUID(), amount: 12345, date: .now, label: "gehalt", notes: "zu wenig kooohle"))
+    
 )
-        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
+.modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }

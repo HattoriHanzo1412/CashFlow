@@ -13,11 +13,13 @@ class Entry: Identifiable {
     var amount: Double
     var date: Date
     var label: String
+    var notes: String
     
-    init(amount: Double, label: String) {
-        self.id = UUID()
+    init(id: UUID, amount: Double, date: Date, label: String, notes: String) {
+        self.id = id
         self.amount = amount
-        self.date = Date()
+        self.date = date
         self.label = label
+        self.notes = notes
     }
 }

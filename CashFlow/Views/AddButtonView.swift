@@ -12,11 +12,13 @@ struct AddTransactionView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Query var expens: [Expense]
+    @Query var entries: [Entry]
     
     @State private var title: String = ""
     @State private var amount: String = ""
     @State private var date: Date = Date()
-    
+    @State private var selectedCategory: Kategorie = .entry
+    @State private var notes: String = "" // Neues Feld für den Verwendungszweck
     var body: some View {
         NavigationStack {
             Form {
@@ -25,6 +27,15 @@ struct AddTransactionView: View {
                     TextField("Summe", text: $amount)
                     
                     DatePicker("Datum", selection: $date, displayedComponents: .date)
+                    
+                    Picker("Kategorie", selection: $selectedCategory) {
+                        ForEach(Kategorie.allCases, id: \.self) { category in
+                            Text(category.rawValue).tag(category)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    TextField("Notiz...", text: $notes) 
                 }
                 Button("Speichern") {
                     addTransaction()
@@ -40,9 +51,10 @@ struct AddTransactionView: View {
             }
         }
     }
+    
     func addTransaction() {
         guard let amountValue = Double(amount) else { return }
-        let newExpense = Expense(amount: amountValue, label: title, notes: "egal")
+        let newExpense = Expense(amount: amountValue, label: title, notes: notes) // Notiz hinzufügen
         modelContext.insert(newExpense)
         do {
             try modelContext.save()
