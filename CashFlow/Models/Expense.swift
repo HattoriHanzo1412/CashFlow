@@ -15,9 +15,9 @@ class Expense: Identifiable {
     var amount: Double
     var date: Date
     var label: String
-    var notes: String?
+    var notes: String
     
-    init(amount: Double, label: String, notes: String) {
+    init(id: UUID = UUID(), amount: Double, label: String, notes: String) {
         self.id = UUID()
         self.amount = amount
         self.date = Date()

@@ -17,39 +17,39 @@ struct LogInandRegisterView: View {
     let validUsername = "1234"
     let validPassword = "abcd"
     var body: some View {
-        NavigationStack {
-            ZStack {
-                if isAuthenticated {
-                    FinanzUebersichtView()
-                } else {
-                    VStack {
-                        Text("Login")
-                            .font(.largeTitle)
-                            .padding()
-                        TextField("Benutzername", text: $username)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        SecureField("Passwort", text: $password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        Button(action: {
-                            authenticate()
-                        }) {
-                            Text("Anmelden")
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
+        
+        ZStack {
+            if isAuthenticated {
+                MainView()
+            } else {
+                VStack {
+                    Text("Login")
+                        .font(.largeTitle)
                         .padding()
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Fehler"), message: Text("Ungültiger Benutzername oder Passwort"), dismissButton: .default(Text("OK")))
-                        }
+                    TextField("Benutzername", text: $username)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    SecureField("Passwort", text: $password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    Button(action: {
+                        authenticate()
+                    }) {
+                        Text("Anmelden")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding()
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Fehler"), message: Text("Ungültiger Benutzername oder Passwort"), dismissButton: .default(Text("OK")))
                     }
                 }
             }
         }
+        
         
     }
     private func authenticate() {

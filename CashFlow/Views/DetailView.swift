@@ -43,7 +43,7 @@ struct DetailView: View {
                         .padding(.horizontal)
                     
                     
-                    Text("Notiz: \(entry.notes)")
+                    Text("Notiz: \(String(describing: entry.notes))")
                         .font(.subheadline)
                         .padding(.horizontal)
                     
@@ -68,6 +68,7 @@ struct DetailView: View {
                     Text("Betrag: \(expense.amount, format: .currency(code: "EUR"))")
                         .font(.headline)
                         .padding(.horizontal)
+                    
                     Text("Kategorie: \(expense.label)")
                         .font(.subheadline)
                         .padding(.horizontal)
@@ -76,6 +77,7 @@ struct DetailView: View {
                     Text("Notiz: \(String(describing: expense.notes))")
                         .font(.subheadline)
                         .padding(.horizontal)
+                        
                     
                     Spacer()
                 }

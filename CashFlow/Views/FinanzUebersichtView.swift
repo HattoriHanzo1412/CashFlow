@@ -25,6 +25,13 @@ struct FinanzUebersichtView: View {
                                     .foregroundColor(.green)
                             }
                         }
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                deleteExpense(expens)
+                            }label: {
+                                Label("Löschen", systemImage: "trash")
+                            }
+                        }
                     }
                 }
                 
@@ -34,8 +41,15 @@ struct FinanzUebersichtView: View {
                             HStack {
                                 Text(entry.label)
                                 Spacer()
-                                Text(String(format: "%.2f €", entry.amount))
+                                Text(String(format: "%.2f €", entry.amount * (-1)))
                                     .foregroundColor(.red)
+                            }
+                        }
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                deleteEntry(entry)
+                            }label: {
+                                Label("Löschen", systemImage: "trash")
                             }
                         }
                     }
@@ -45,16 +59,24 @@ struct FinanzUebersichtView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: AddTransactionView()) {
-                        Text("Add")
+                        Label("Add", systemImage: "plus.circle")
                             .font(.headline)
                     }
                 }
             }
         }
     }
-}
-    #Preview {FinanzUebersichtView()
-            .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
-        
+    
+    private func deleteExpense(_ expense: Expense){
+        modelContext.delete(expense)
     }
+    private func deleteEntry(_ entrys: Entry){
+        modelContext.delete(entrys)
+    }
+}
+
+#Preview {FinanzUebersichtView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
+    
+}
 

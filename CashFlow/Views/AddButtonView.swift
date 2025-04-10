@@ -33,7 +33,7 @@ struct AddTransactionView: View {
                             Text(category.rawValue).tag(category)
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(.segmented)
                     
                     TextField("Notiz...", text: $notes) 
                 }
@@ -53,17 +53,26 @@ struct AddTransactionView: View {
     }
     
     func addTransaction() {
-        guard let amountValue = Double(amount) else { return }
-        let newExpense = Expense(amount: amountValue, label: title, notes: notes) 
-        modelContext.insert(newExpense)
-        do {
-            try modelContext.save()
-        } catch {
-            print("Fehler beim Speichern: \(error)")
+            guard let amountValue = Double(amount) else {
+                return
+            }
+            if selectedCategory != .expense {
+                let newExpense = Expense(amount: amountValue, label: title, notes: notes)
+                modelContext.insert(newExpense)
+            } else {
+                let newEntry = Entry(id: UUID(), amount: amountValue, date: Date(), label: title, notes: notes)
+                modelContext.insert(newEntry)
+            }
+            do {
+                try modelContext.save()
+            } catch {
+                print("Fehler beim Speichern: \(error)")
+                
+            }
+            
+            dismiss()
         }
-        dismiss()
     }
-}
 #Preview{
     AddTransactionView()
         .modelContainer(for: [Expense.self, Entry.self], inMemory: true)

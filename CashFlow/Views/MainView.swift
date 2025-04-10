@@ -6,24 +6,21 @@
 //
 import SwiftData
 import SwiftUI
+import Charts
 
 struct MainView: View {
     
     @Environment(\.modelContext) private var context
     @Query var expenses: [Expense] = []
-    
+    @Query var entrys: [Entry] = []
     
     var body: some View {
         TabView{
-            LogInandRegisterView()
-                .tabItem{
-                    Label("LogIn", systemImage: "person.circle")
-                }
             FinanzUebersichtView()
                 .tabItem{
                     Label("Finanzen", systemImage: "briefcase.fill")
                 }
-            HaushaltsbuchView()
+            FinanzChartView(expenses: expenses, entrys: entrys)
                 .tabItem{
                     Label("Haushaltsbuch", systemImage: "book.fill")
                 }
