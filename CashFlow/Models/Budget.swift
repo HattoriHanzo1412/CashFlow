@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 @Model
+
 class Budget: Identifiable {
     var id: UUID = UUID()
     var title: String = ""

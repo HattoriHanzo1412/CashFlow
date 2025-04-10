@@ -16,24 +16,47 @@ struct DetailView: View {
     }
     var body: some View {
         ScrollView{
-            HStack{
-                
                 VStack(alignment:.leading, spacing:10){
-                    Text(selectedExpense.label)
+                    Text("Detail Buchung")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.horizontal)
                     Text(dateFormatter.string(from: selectedExpense.date))
                         .font(.caption)
                         .foregroundColor(.blue)
-                    
-                    
-                }
+                        .padding(.horizontal)
+                    Divider()
+                        .overlay(.black)
+                    Spacer()
+                        
+                    Text("Betrag:\(selectedExpense.amount, format: .currency(code: "EUR"))")
+                        .font(.headline)
+                        .padding(.horizontal)
+                    Text("Kategorie: \(selectedExpense.label)")
+                        .font(.subheadline)
+                        .padding(.horizontal)
+                    Spacer()
+                    if let notes = selectedExpense.notes, !notes.isEmpty {
+                        Text("Notizen")
+                            .font(.headline)
+                            .padding(.horizontal)
+                        Text(notes)
+                            .font(.body)
+                            .padding(.horizontal)
+                            .padding(.bottom)
+                    }
+                
             }
             
         }
     }
 }
-#Preview {DetailView(selectedExpense: Expense(amount: 1500.00, label: "Gehalt"))
+#Preview {DetailView(
+    selectedExpense: Expense(
+        amount: 1500.00,
+        label: "Gehalt",
+        notes: "Gehalt von letztem Monat März"
+    )
+)
         .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }

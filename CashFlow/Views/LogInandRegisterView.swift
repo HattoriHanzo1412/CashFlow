@@ -8,7 +8,7 @@ import SwiftData
 import SwiftUI
 struct LogInandRegisterView: View {
     @Environment(\.modelContext) private var context
-   
+    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isAuthenticated: Bool = false
@@ -20,14 +20,9 @@ struct LogInandRegisterView: View {
         NavigationStack {
             ZStack {
                 if isAuthenticated {
-                   
-                  FinanzUebersichtView()
-                    
-                    
+                    FinanzUebersichtView()
                 } else {
-                    
                     VStack {
-                        
                         Text("Login")
                             .font(.largeTitle)
                             .padding()

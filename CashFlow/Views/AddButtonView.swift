@@ -23,7 +23,7 @@ struct AddTransactionView: View {
                 Section(header: Text("Transaktion Details")) {
                     TextField("Beschreibung", text: $title)
                     TextField("Summe", text: $amount)
-                       
+                    
                     DatePicker("Datum", selection: $date, displayedComponents: .date)
                 }
                 Button("Speichern") {
@@ -42,7 +42,7 @@ struct AddTransactionView: View {
     }
     func addTransaction() {
         guard let amountValue = Double(amount) else { return }
-        let newExpense = Expense(amount: amountValue, label: title)
+        let newExpense = Expense(amount: amountValue, label: title, notes: "egal")
         modelContext.insert(newExpense)
         do {
             try modelContext.save()

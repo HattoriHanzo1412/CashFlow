@@ -12,7 +12,7 @@ struct FinanzUebersichtView: View {
     @Query var expenses: [Expense]
     @Query var entrys: [Entry]
     
-
+    
     
     var body: some View {
         NavigationStack {
