@@ -19,23 +19,29 @@ struct FinanzUebersichtView: View {
             List {
                 Section(header: Text("Einahmen")) {
                     ForEach(expenses,id: \.id) { expens in
-                        HStack {
-                            Text(expens.label)
-                            Spacer()
-                            Text(String(format: "%.2f €", expens.amount))
-                                .foregroundColor(.green)
+                        NavigationLink(destination:DetailView(selectedExpense: expens)){
+                            HStack {
+                                Text(expens.label)
+                                Spacer()
+                                Text(String(format: "%.2f €", expens.amount))
+                                    .foregroundColor(.green)
+                                
+                            }
                             
                         }
-                        
                     }
                 }
                 Section(header: Text("Ausgaben")) {
                     ForEach(entrys,id: \.id) { entry in
-                        HStack {
-                            Text(entry.label)
-                            Spacer()
-                            Text(String(format: "%.2f €", entry.amount))
-                                .foregroundColor(.red)
+                        NavigationLink(destination:DetailView(selectedExpense: entry)){
+                            
+                            HStack {
+                                
+                                Text(entry.label)
+                                Spacer()
+                                Text(String(format: "%.2f €", entry.amount))
+                                    .foregroundColor(.red)
+                            }
                         }
                     }
                 }
