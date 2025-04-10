@@ -10,6 +10,8 @@ import Charts
 
 struct MainView: View {
     
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
     @Environment(\.modelContext) private var context
     @Query var expenses: [Expense] = []
     @Query var entrys: [Entry] = []
@@ -24,15 +26,13 @@ struct MainView: View {
                 .tabItem{
                     Label("Haushaltsbuch", systemImage: "book.fill")
                 }
-            AddTransactionView()
+            SettingsView()
                 .tabItem{
-                    Label("Transaktion hinzufügen", systemImage: "plus")
+                    Label("Settings", systemImage: "gear")
                 }
         }
-        
-        
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
-    
 }
 
 #Preview {MainView()
