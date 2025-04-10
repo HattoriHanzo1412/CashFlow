@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+
 struct AddTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext

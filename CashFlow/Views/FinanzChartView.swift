@@ -4,10 +4,10 @@
 //
 //  Created by Kimberly Voigt on 08.04.25.
 //
-import SwiftData
+
+
 import SwiftUI
 import Charts
-
 struct FinanzChartView: View {
     
     var expenses: [Expense]
@@ -17,16 +17,17 @@ struct FinanzChartView: View {
         
         VStack {
             Text("Finanzübersicht")
-                .font(.title)
+                .font(.largeTitle)
+                .fontWeight(.bold)
                 .padding(.top)
-            Chart{
+            Chart {
                 ForEach(expenses) { expense in
                     BarMark(
                         x: .value("Label", expense.label),
                         y: .value("Amount", expense.amount)
                     )
                     .foregroundStyle(.green)
-                   
+                    .cornerRadius(8)
                 }
                 ForEach(entrys) { entry in
                     BarMark(
@@ -34,11 +35,31 @@ struct FinanzChartView: View {
                         y: .value("Amount", entry.amount)
                     )
                     .foregroundStyle(.red)
+                    .cornerRadius(8)
                 }
             }
             .frame(height: 350)
             .padding()
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(12)
+            .shadow(radius: 10)
+            
+            .chartXAxis {
+                AxisMarks(position: .bottom) {
+                    AxisGridLine()
+                    AxisTick()
+                    AxisValueLabel()
+                }
+            }
+            .chartYAxis {
+                AxisMarks(position: .leading) {
+                    AxisGridLine()
+                    AxisTick()
+                    AxisValueLabel()
+                }
+            }
         }
+        .padding()
     }
 }
 #Preview {

@@ -12,12 +12,18 @@ struct FinanzUebersichtView: View {
     @Query var expenses: [Expense]
     @Query var entrys: [Entry]
     
+    @State private var showingDetailView = false
+    @State private var selectedExpense: Transaktion?
+    
     var body: some View {
         NavigationStack {
             List {
                 Section(header: Text("Einahmen")) {
                     ForEach(expenses, id: \.id) { expens in
-                        NavigationLink(destination: DetailView(selectedExpense: Transaktion(expense: expens))) {
+                        Button {
+                            selectedExpense = Transaktion(expense: expens)
+                            showingDetailView = true
+                        } label: {
                             HStack {
                                 Text(expens.label)
                                 Spacer()
@@ -37,7 +43,10 @@ struct FinanzUebersichtView: View {
                 
                 Section(header: Text("Ausgaben")) {
                     ForEach(entrys, id: \.id) { entry in
-                        NavigationLink(destination: DetailView(selectedExpense: Transaktion(entry: entry))) {
+                        Button {
+                            selectedExpense = Transaktion(entry: entry)
+                            showingDetailView = true
+                        } label: {
                             HStack {
                                 Text(entry.label)
                                 Spacer()
@@ -55,7 +64,7 @@ struct FinanzUebersichtView: View {
                     }
                 }
             }
-            .navigationTitle(Text("Finanzübersicht").font(.largeTitle)) 
+            .navigationTitle(Text("Finanzübersicht").font(.largeTitle))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: AddTransactionView()) {
@@ -64,9 +73,13 @@ struct FinanzUebersichtView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showingDetailView) {
+                if let selectedExpense = selectedExpense {
+                    DetailView(selectedExpense: selectedExpense)
+                }
+            }
         }
     }
-    
     private func deleteExpense(_ expense: Expense){
         modelContext.delete(expense)
     }
