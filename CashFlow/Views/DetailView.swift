@@ -18,16 +18,16 @@ struct DetailView: View {
         formatter.dateStyle = .long
         return formatter
     }
-    @State private var gradientColors: [Color] = [.green, .white, .blue]
+    @State private var gradientColors: [Color] = [.gray, .white, .blue]
     
     var body: some View {
         ZStack {
             AnimatedView(colors: $gradientColors)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .edgesIgnoringSafeArea(.all)
-            
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
+                   
                     if let entry = selectedExpense.entry {
                         Text("Detail Buchung")
                             .font(.title)
@@ -41,11 +41,11 @@ struct DetailView: View {
         
                         Spacer()
                         
-                        Text("Gehalt: \(String(format: "%.2f", entry.amount)) €")
+                        Text("Einnahme: \(String(format: "%.2f", entry.amount)) €")
                             .font(.headline)
                             .padding()
                             .foregroundColor(.white)
-                            .background(Capsule().fill(Color.green))
+                            .background(Capsule().fill(.green).opacity(0.7))
                             .padding(.horizontal)
                         
                         Spacer()
@@ -79,10 +79,18 @@ struct DetailView: View {
                             .padding(.bottom, 5)
                         Divider()
                             .overlay(.black)
-                        Spacer()
                         
-                        Text("Betrag: \(expense.amount, format: .currency(code: "EUR"))")
+                        Text("Ausgabe: \(String(format: "%.2f", expense.amount * (-1))) €")
                             .font(.headline)
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Capsule().fill(.red).opacity(0.7))
+                            .padding(.horizontal)
+                        
+                        Spacer()
+                        Text("Zusätzliche Informationen:")
+                            .font(.title2)
+                            .fontWeight(.bold)
                             .padding(.horizontal)
                         
                         Text("Kategorie: \(expense.label)")
@@ -92,8 +100,6 @@ struct DetailView: View {
                         Text("Notiz: \(String(describing: expense.notes))")
                             .font(.subheadline)
                             .padding(.horizontal)
-                        
-                        Spacer().frame(height: 20)
                     }
                 }
                 .padding(.bottom, 20)

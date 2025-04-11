@@ -21,7 +21,7 @@ struct LogInandRegisterView: View {
     @State private var isRegistering: Bool = false
     @State private var alertMessage: String = ""
     
-    
+    // Dummy Daten
     let validUsername = "1234"
     let validPassword = "abcd"
     let validEmail = "syntax@test123.de"
