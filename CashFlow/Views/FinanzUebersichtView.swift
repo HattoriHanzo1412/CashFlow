@@ -38,7 +38,6 @@ struct FinanzUebersichtView: View {
                         }
                     }
                 }
-                .foregroundStyle(.black)
                 Section(header: Text("Ausgaben")) {
                     ForEach(entrys, id: \.id) { entry in
                         Button {
@@ -84,8 +83,8 @@ struct FinanzUebersichtView: View {
     }
 }
 
-#Preview {FinanzUebersichtView()
-        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
-    
+#Preview {
+    FinanzUebersichtView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)    
 }
 

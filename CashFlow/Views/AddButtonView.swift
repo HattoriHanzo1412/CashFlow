@@ -18,7 +18,7 @@ struct AddTransactionView: View {
     @State private var title: String = ""
     @State private var amount: String = ""
     @State private var date: Date = Date()
-    @State private var selectedCategory: Kategorie = .entry
+    @State private var selectedCategory: Kategorie = .expense
     @State private var notes: String = ""
     var body: some View {
         NavigationStack {
