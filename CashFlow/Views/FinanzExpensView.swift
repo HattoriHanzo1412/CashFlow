@@ -11,7 +11,7 @@ import SwiftData
 struct FinanzExpensView: View {
     
     @Environment(\.modelContext) private var modelContext
-
+    
     @Query var expenses: [Expense]
     
     private var dateFormatter: DateFormatter {
@@ -19,28 +19,36 @@ struct FinanzExpensView: View {
         formatter.dateStyle = .long
         return formatter
     }
-
+    
     var body: some View {
-        Text("Ausgabenübersicht")
-            .font(.title)
-        List(expenses ) { expens in
-            VStack {
-                
-                Text(expens.label)
-                    .font(.headline)
-                Text(String(format: "%.2f €", expens.amount * (-1)))
-                    .font(.subheadline)
-                Text(dateFormatter.string(from: expens.date))
-                    .font(.subheadline)
+        NavigationStack{
+            List(expenses) { expens in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(expens.label)
+                            .font(.headline)
+                        Text(dateFormatter.string(from: expens.date))
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                    Text(String(format: "%.2f €", expens.amount * (-1)))
+                        .font(.subheadline)
+                    .foregroundColor(.red)        }
+                .padding()
+                .background(Color(UIColor.systemBackground))
+                .cornerRadius(8)
+                .shadow(color: Color(UIColor.blue).opacity(0.3), radius: 4, x: 0, y: 2)
+                .swipeActions {
+                    Button("Löschen", systemImage: "trash", role: .destructive) {
+                        
+                    }
+                }
             }
-            .padding()
+            .navigationTitle("Ausgabenübersicht")
         }
-        
     }
 }
-
-        
-    
 
 
 #Preview {

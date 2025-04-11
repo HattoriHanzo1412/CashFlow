@@ -17,7 +17,7 @@ struct FinanzUebersichtView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("Einahmen")) {
+                Section(header: Text("Ausgaben")) {
                     ForEach(expenses, id: \.id) { expens in
                         Button {
                             selectedExpense = Transaktion(expense: expens)
@@ -25,8 +25,8 @@ struct FinanzUebersichtView: View {
                             HStack {
                                 Text(expens.label)
                                 Spacer()
-                                Text(String(format: "%.2f €", expens.amount))
-                                    .foregroundColor(.green)
+                                Text(String(format: "%.2f €", expens.amount * (-1)))
+                                    .foregroundColor(.red)
                             }
                         }
                         .swipeActions {
@@ -38,7 +38,7 @@ struct FinanzUebersichtView: View {
                         }
                     }
                 }
-                Section(header: Text("Ausgaben")) {
+                Section(header: Text("Einahmen")) {
                     ForEach(entrys, id: \.id) { entry in
                         Button {
                             selectedExpense = Transaktion(entry: entry)
@@ -46,8 +46,8 @@ struct FinanzUebersichtView: View {
                             HStack {
                                 Text(entry.label)
                                 Spacer()
-                                Text(String(format: "%.2f €", entry.amount * (-1)))
-                                    .foregroundColor(.red)
+                                Text(String(format: "%.2f €", entry.amount))
+                                    .foregroundColor(.green)
                             }
                         }
                         .swipeActions {

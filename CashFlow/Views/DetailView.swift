@@ -18,7 +18,7 @@ struct DetailView: View {
         formatter.dateStyle = .long
         return formatter
     }
-    @State private var gradientColors: [Color] = [.gray, .white, .blue]
+    @State private var gradientColors: [Color] = [.green, .white, .blue]
     
     var body: some View {
         ZStack {
@@ -38,13 +38,26 @@ struct DetailView: View {
                             .foregroundColor(.blue)
                             .padding(.horizontal)
                             .padding(.bottom, 5)
-                        Divider()
-                            .overlay(.black)
+        
                         Spacer()
                         
-                        Text("Betrag: \(entry.amount, format: .currency(code: "EUR"))")
+                        Text("Gehalt: \(String(format: "%.2f", entry.amount)) €")
                             .font(.headline)
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Capsule().fill(Color.green))
                             .padding(.horizontal)
+                        
+                        Spacer()
+                        Divider()
+                            .overlay(.black)
+                            
+                        
+                        Text("Zusätzliche Informationen:")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                        
                         Text("Kategorie: \(entry.label)")
                             .font(.subheadline)
                             .padding(.horizontal)
@@ -52,8 +65,6 @@ struct DetailView: View {
                         Text("Notiz: \(String(describing: entry.notes))")
                             .font(.subheadline)
                             .padding(.horizontal)
-                        
-                        Spacer().frame(height: 20)
                     }
                     
                     if let expense = selectedExpense.expense {
@@ -93,7 +104,7 @@ struct DetailView: View {
 }
 #Preview {DetailView(
     selectedExpense: Transaktion(
-        entry: Entry(id: UUID(), amount: 12345, date: .now, label: "gehalt", notes: "zu wenig kooohle")
+        entry: Entry(id: UUID(), amount: 12345, date: .now, label: "Lohn April", notes: "zu wenig kooohle")
     )
 )
     

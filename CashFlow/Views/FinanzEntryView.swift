@@ -13,34 +13,45 @@ struct FinanzEntryView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var entrys: [Entry]
     
-    let einahmen: [Entry] = [Entry(id: UUID(), amount: 234, date: Date(), label: "Essen/Trinken", notes: "gestern gekauft")]
-    
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         return formatter
     }
-
+    
     var body: some View {
-        Text("Einahmenübersicht")
-            .font(.title)
-        List(einahmen ) { entry in
-            VStack {
-                
-                Text(entry.label)
-                    .font(.headline)
-                Text(String(format: "%.2f €", entry.amount * (-1)))
-                    .font(.subheadline)
-                Text(dateFormatter.string(from: entry.date))
-                    .font(.subheadline)
+        NavigationStack{
+            List(entrys) { entry in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(entry.label)
+                            .font(.headline)
+                        Text(dateFormatter.string(from: entry.date))
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                        
+                        
+                    }
+                    Spacer()
+                    Text(String(format: "%.2f €", entry.amount))
+                        .font(.subheadline)
+                    .foregroundColor(.green)        }
+                .padding()
+                .background(Color(UIColor.systemBackground))
+                .cornerRadius(8)
+                .shadow(color: Color(UIColor.blue).opacity(0.3), radius: 4, x: 0, y: 2)
+                .swipeActions {
+                    Button("Löschen", systemImage: "trash", role: .destructive) {
+                        
+                    }
+                }
             }
-            .padding()
+            .navigationTitle("Einahmenübersicht")
         }
-        
     }
 }
-
 #Preview {
     FinanzEntryView()
         .modelContainer(for: Entry.self, inMemory: true)
 }
+

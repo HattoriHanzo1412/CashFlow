@@ -17,7 +17,7 @@ struct AnimatedView: View {
         }
     }
     
-    @State private var opacity = 1.0
+    @State private var opacity = 2.0
     @State private var startPoint: UnitPoint = .topLeading
     @State private var endPoint: UnitPoint = .bottomTrailing
     
@@ -32,7 +32,7 @@ struct AnimatedView: View {
             withAnimation(.easeInOut(duration: 5).repeatForever(autoreverses: true)) {
                 startPoint = .topTrailing
                 endPoint = .bottomTrailing
-                opacity = 0.5
+                opacity = 0.9
             }
         }
     }
@@ -40,5 +40,5 @@ struct AnimatedView: View {
 
 
 #Preview {
-    AnimatedView(colors: .constant([.orange, .white]))
+    AnimatedView(colors: .constant([.green, .white,.blue]))
 }

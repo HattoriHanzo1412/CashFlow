@@ -98,7 +98,7 @@ struct SettingsView: View {
             .environment(\.colorScheme, isDarkMode ? .dark : .light)
             .animation(.easeInOut, value: isDarkMode)
             .navigationDestination(isPresented: $isLoggedOut) {
-                LogInandRegisterView()
+               LogInandRegisterView()
             }
         }
     }
