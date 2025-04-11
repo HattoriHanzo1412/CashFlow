@@ -24,7 +24,7 @@ struct MainView: View {
                 }
             FinanzChartView(expenses: expenses, entrys: entrys)
                 .tabItem{
-                    Label("Haushaltsbuch", systemImage: "book.fill")
+                    Label("Finanzübersicht", systemImage: "book.fill")
                 }
             SettingsView()
                 .tabItem{

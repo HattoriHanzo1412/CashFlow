@@ -12,7 +12,6 @@ struct FinanzUebersichtView: View {
     @Query var expenses: [Expense]
     @Query var entrys: [Entry]
     
-    @State private var showingDetailView = false
     @State private var selectedExpense: Transaktion?
     
     var body: some View {
@@ -22,7 +21,6 @@ struct FinanzUebersichtView: View {
                     ForEach(expenses, id: \.id) { expens in
                         Button {
                             selectedExpense = Transaktion(expense: expens)
-                            showingDetailView = true
                         } label: {
                             HStack {
                                 Text(expens.label)
@@ -40,12 +38,11 @@ struct FinanzUebersichtView: View {
                         }
                     }
                 }
-                
+                .foregroundStyle(.black)
                 Section(header: Text("Ausgaben")) {
                     ForEach(entrys, id: \.id) { entry in
                         Button {
                             selectedExpense = Transaktion(entry: entry)
-                            showingDetailView = true
                         } label: {
                             HStack {
                                 Text(entry.label)
@@ -64,7 +61,7 @@ struct FinanzUebersichtView: View {
                     }
                 }
             }
-            .navigationTitle(Text("Finanzübersicht").font(.largeTitle))
+            .navigationTitle(Text("Finanzen").font(.largeTitle))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: AddTransactionView()) {
@@ -73,10 +70,9 @@ struct FinanzUebersichtView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showingDetailView) {
-                if let selectedExpense = selectedExpense {
-                    DetailView(selectedExpense: selectedExpense)
-                }
+            .sheet(item: $selectedExpense) { expans in
+                DetailView(selectedExpense: expans)
+                
             }
         }
     }

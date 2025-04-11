@@ -14,4 +14,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: [Expense.self, Entry.self], inMemory: true)
 }
