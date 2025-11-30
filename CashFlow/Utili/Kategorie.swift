@@ -8,6 +8,6 @@
 import Foundation
 
 enum Kategorie: String, CaseIterable {
-        case expense = "Einahmen    "
-        case entry = "Ausgaben"
+        case expense = "Ausgaben"
+        case entry = "Einnahmen"
     }

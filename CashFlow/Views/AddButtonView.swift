@@ -57,7 +57,7 @@ struct AddTransactionView: View {
             guard let amountValue = Double(amount) else {
                 return
             }
-            if selectedCategory != .expense {
+            if selectedCategory == .expense {
                 let newExpense = Expense(amount: amountValue, label: title, notes: notes)
                 modelContext.insert(newExpense)
             } else {
